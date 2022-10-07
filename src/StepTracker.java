@@ -3,9 +3,10 @@ import java.util.Scanner;
 public class StepTracker {
 
     int[][] monthToData;
-    int targetSteps = 10000; // может надо перенести в майн
+
 
     public StepTracker() {
+
         monthToData = new int [12][30];
         for (int i = 0; i < monthToData.length; i++) {
             for (int j = 0; j < monthToData[0].length; j++) {
@@ -13,20 +14,18 @@ public class StepTracker {
             }
         }
     }
-     int TargetSteps (int steps) {
+     int TargetSteps (int targetSteps) {
 
-        if (steps>0) {
-            System.out.println("Ваша новая цель по количеству шагов на день: "+ steps);
+        if (targetSteps>0) {
+            System.out.println("Ваша новая цель по количеству шагов на день: "+ targetSteps);
         }
         else {
             System.out.println("Извините, целевое количества шагов не может быть отрицательным.");
         }
-        return steps;
+        return targetSteps;
         // метод меняет цель по шагам
     }
     int saveStepsDay(int month, int day, int stepsDay) {
-        //Как реализовать- Если за какой-то день статистика
-        // не сохранялась, то считаем количество шагов в этот день равным 0.
         if (stepsDay >0) {
             monthToData[month][day-1] = stepsDay;
             System.out.println("Месяц: " + month + "." + " День: " + day + "." + " Сделано "
@@ -40,30 +39,67 @@ public class StepTracker {
 
     void printStepsMonthToDay(int month) {
 
-            for (int j = 0; j < 30; j++) {
-                System.out.println("Месяц: "+ month + "." + "День: "+ (j+1)  + "." +  "Сделано "
-                        + monthToData[month][j]  + " шагов.");
+        for (int j = 0; j < monthToData[0].length; j++) {
+
+            System.out.println("Месяц: " + month + "." + "День: " + (j + 1) + "." + "Сделано "
+                    + monthToData[month][j] + " шагов.");
+
+        }
+
+    }
+    int printSumStepsMonth(int month) {
+        int sumStepsMonth = 0;
+        for (int j = 0; j < monthToData[0].length; j++) {
+
+            sumStepsMonth = sumStepsMonth + monthToData[month][j];
+        }
+        System.out.println("Общее количество шагов за " + month + " месяц: " + sumStepsMonth);
+ return sumStepsMonth;
+    }
+
+    void printMaxStepsMonth(int month) {
+        int maxSteps=0;
+        for (int j = 0; j < monthToData[0].length; j++) {
+            if (maxSteps < monthToData[month][j]) {
+                maxSteps = monthToData[month][j];
             }
-            System.out.println();//перенос строки ради визуального сохранения табличной формы
+        }
+        System.out.println("Максимальное количество шагов за " + month + " месяц: " + maxSteps);
+    }
+
+    int printMaxSeriesSteps(int month, int targetSteps) {
+        int maxStepsDay=0;
+        int StepsDay = 0;
+        for (int j = 0; j < monthToData[0].length; j++) {
+            if (monthToData[month][j] >= targetSteps)   {
+                StepsDay += 1;
+            }
+            else{
+                if (StepsDay > maxStepsDay){
+                    maxStepsDay = StepsDay;
+                }
+                StepsDay = 0;
+            }
+        }
+        if (StepsDay > maxStepsDay){
+            maxStepsDay = StepsDay;
+        }
+        System.out.println("Максимальное подряд идущих дней за " + month + " месяц: " + maxStepsDay);
+        return maxStepsDay;
+    }
+
+    int printAverageStepsMonth(int month) {
+
+        int averageSteps=monthToData[0].length;
+        int sumStepsMonth = 0;
+        for (int j = 0; j < monthToData[0].length; j++) {
+
+            sumStepsMonth = sumStepsMonth + monthToData[month][j];
+        }
+        averageSteps=sumStepsMonth/averageSteps;
+  return averageSteps;
+    }
+
 
     }
 
-    class MonthData {
-
-         void saveStepsDay() {
-             /*Сохранение количества шагов за день. Пользователь должен указать
-             номер месяца (начиная с 0), номер дня и количество шагов, пройденных
-             в этот день. Количество шагов должно быть неотрицательным. Для
-             ускорения прототипирования на данном этапе считается, что в месяце
-             ровно 30 дней. Если за какой-то день статистика не сохранялась,
-             то считаем количество шагов в этот день равным 0.
-              */
-
-
-         }
-
-
-         // создать метод для вывода шагов за опред месяц + метод для внесения количества шагов за опред месяц
-
-    }
-}
