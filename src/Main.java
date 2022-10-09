@@ -18,7 +18,7 @@ public class Main {
                 System.out.println("За какой месяц вы хотите узнать количество пройденных шагов: 0-Январь, 1-Февраль, 2-Март, 3-Апрель, " +
                         "4-Май, 5-Июнь, 6-Июль, 7-Август, 8-Сентябрь, 9-Октябрь, 10-Ноябрь, 11-Декабрь?");
                 int month = scanner.nextInt();
-                if (month<12) {
+                if (month>=0 & month<12) {
                     stepTracker.printStepsMonthToDay(month);
                     stepTracker.printMaxStepsMonth(month);
                     System.out.println("Среднее количество шагов за " + month + " месяц: " + stepTracker.printAverageStepsMonth(month));
