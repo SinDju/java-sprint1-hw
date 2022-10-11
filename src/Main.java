@@ -2,10 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+       Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker();
-        Converter converter= new Converter();
-        int steps=10000;
+
 
 
         while (true) {
@@ -15,27 +14,9 @@ public class Main {
             if (userInput == 1) {
                 stepTracker.addCountStepsPerDay();
             } else if (userInput == 2) {
-                System.out.println("За какой месяц вы хотите узнать количество пройденных шагов: 0-Январь, 1-Февраль, 2-Март, 3-Апрель, " +
-                        "4-Май, 5-Июнь, 6-Июль, 7-Август, 8-Сентябрь, 9-Октябрь, 10-Ноябрь, 11-Декабрь?");
-                int month = scanner.nextInt();
-                if (month>=0 & month<12) {
-                    stepTracker.printStepsMonthToDay(month);
-                    stepTracker.printMaxStepsMonth(month);
-                    System.out.println("Среднее количество шагов за " + month + " месяц: " + stepTracker.printAverageStepsMonth(month));
-                    int stepsSum = stepTracker.printSumStepsMonth(month);
-                    stepTracker.printMaxSeriesSteps(month, steps);
-                    converter.converterDistance(stepsSum);
-                    converter.convertercCallory(stepsSum, month);
-                }
-                else{
-                    System.out.println("Извините, такой команды пока нет.");
-                }
+                stepTracker.outputStatisticsStepsMonth();
             } else if (userInput == 3) {
-                System.out.println("Введите Вашу новую цель по количеству шагов за день:");
-                 steps = scanner.nextInt();
-                steps = stepTracker.TargetSteps(steps);
-
-
+                stepTracker.TargetSteps();
             } else if ( userInput== 4) {
                 System.out.println("Выход");
                 break;
